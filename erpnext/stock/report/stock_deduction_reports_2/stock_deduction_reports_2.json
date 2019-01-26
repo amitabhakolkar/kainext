@@ -1,0 +1,36 @@
+{
+ "add_total_row": 0, 
+ "apply_user_permissions": 0, 
+ "creation": "2018-08-24 12:04:03.854837", 
+ "disabled": 0, 
+ "docstatus": 0, 
+ "doctype": "Report", 
+ "idx": 0, 
+ "is_standard": "Yes", 
+ "modified": "2018-08-24 13:19:53.256553", 
+ "modified_by": "Administrator", 
+ "module": "Stock", 
+ "name": "Stock Deduction Reports 2", 
+ "owner": "Administrator", 
+ "query": "select e.name, b.item_code,sum(e.qty) from viewbom b,viewsalesinvoice e where b.item=e.item_code and e.name like 'SINV-00019' group by b.item_code order by e.name", 
+ "ref_doctype": "Stock Entry", 
+ "report_name": "Stock Deduction Reports 2", 
+ "report_type": "Query Report", 
+ "roles": [
+  {
+   "role": "Stock Manager"
+  }, 
+  {
+   "role": "Manufacturing User"
+  }, 
+  {
+   "role": "Stock User"
+  }, 
+  {
+   "role": "Manufacturing Manager"
+  }, 
+  {
+   "role": "sagar"
+  }
+ ]
+}

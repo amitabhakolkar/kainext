@@ -4,6 +4,7 @@
 from __future__ import unicode_literals
 import frappe, erpnext
 import frappe.defaults
+import frappe
 from frappe.utils import cint, flt
 from frappe import _, msgprint, throw
 from erpnext.accounts.party import get_party_account, get_due_date
@@ -990,3 +991,67 @@ def set_account_for_mode_of_payment(self):
 	for data in self.payments:
 		if not data.account:
 			data.account = get_bank_cash_account(data.mode_of_payment, self.company).get("account")
+
+
+
+
+
+@frappe.whitelist()
+def fetchSeq_frm_id(file_date,seqfrm):
+	a= frappe.db.sql("select min(name),loc from `tabPart_Detail` where CAST(file_date AS DATE) like CAST('" + file_date + "' AS DATE) and seq_no like '" + seqfrm + "';")
+	return a
+
+@frappe.whitelist()
+def fetchSeq_to_id(file_date,file_date_to,seqto):
+	a= frappe.db.sql("select max(name) from `tabPart_Detail` where CAST(file_date AS DATE) between CAST('" + file_date + "' AS DATE) and CAST('" + file_date_to + "' AS DATE) and seq_no like '" + seqto + "';")
+	return a
+
+@frappe.whitelist()
+def fetchSelectedM100Data(file_date,file_date_to,seqfrm,seqto,user):
+        x = frappe.db.sql("select seq_no,part_number,qty,car_no,sequence,part_group,loc,name from `tabPart_Detail` where CAST(file_date AS DATE) between CAST('" + file_date + "' AS DATE) and CAST('" + file_date_to + "' AS DATE) and name between '" + seqfrm + "' and '" + seqto + "' and ((invoice_processed = 0 and user_id LIKE '" + user + "' and flag = 1) OR (invoice_processed = 0 and user_id is null and flag = 0)) and loc like 'M100' order by name;")
+	return x
+
+@frappe.whitelist()
+def fetchSelectedData(file_date,file_date_to,seqfrm,seqto,user):
+        x = frappe.db.sql("select seq_no,part_number,qty,car_no,sequence,part_group,loc,name from `tabPart_Detail` where CAST(file_date AS DATE) between CAST('" + file_date + "' AS DATE) and CAST('" + file_date_to + "' AS DATE) and name between '" + seqfrm + "' and '" + seqto + "' and ((invoice_processed = 0 and user_id LIKE '" + user + "' and flag = 1) OR (invoice_processed = 0 and user_id is null and flag = 0)) and loc not like 'M100' order by name;")
+	return x
+
+@frappe.whitelist()
+def get_full_user_nameforM100(user,fdate,ftodate,seqfrom,seqto):
+#	p = frappe.db.get_value("User", user, "full_name")
+        frappe.db.sql("update `tabPart_Detail` set user_id= '" + user + "',flag = 1 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name between '" + seqfrom + "' and '" + seqto + "' and user_id is null and flag = 0 and loc like 'M100';")
+#       return p
+
+@frappe.whitelist()
+def get_full_user_name(user,fdate,ftodate,seqfrom,seqto):
+#	p = frappe.db.get_value("User", user, "full_name")
+        frappe.db.sql("update `tabPart_Detail` set user_id= '" + user + "',flag = 1 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name between '" + seqfrom + "' and '" + seqto + "' and user_id is null and flag = 0 and loc not like 'M100';")
+#       return p
+
+
+@frappe.whitelist()
+def get_item_sumry_data(parent):
+	d=frappe.db.sql("select s.item_code,i.item_name,sum(qty),i.gst_hsn_code,po.po_number,i.standard_rate from `tabInvoice Items` s,tabItem i,`tabPO Details` po where s.item_code=i.item_code and s.item_code=po.item_code and i.item_code=po.item_code and s.parent LIKE '" + parent + "' and process_for_invoice = 1 group by item_code order by item_code desc;")
+        return d
+
+@frappe.whitelist()
+def update_seq_no(fdate,ftodate,fin_seq):
+	 frappe.db.sql("update `tabPart_Detail` set user_id= null,flag = 0 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name like '" + fin_seq + "' and user_id is not null and flag = 1;")
+
+@frappe.whitelist()
+def update_seq_no_check(user,fdate,ftodate,fin_seq):
+	 frappe.db.sql("update `tabPart_Detail` set user_id= '" + user + "',flag = 1 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name like '" + fin_seq + "' and user_id is null and flag = 0;")
+
+@frappe.whitelist()
+def update_inv_process_checkforM100(fdate,ftodate,seqfrom,seqto):
+	frappe.db.sql("update `tabPart_Detail` set invoice_processed = 1 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name between '" + seqfrom + "' and '" + seqto + "' and flag = 1 and user_id is not null and loc like 'M100';")
+
+@frappe.whitelist()
+def update_inv_process_check(fdate,ftodate,seqfrom,seqto):
+	frappe.db.sql("update `tabPart_Detail` set invoice_processed = 1 where CAST(file_date AS DATE) between CAST('" + fdate+ "' AS DATE) and CAST('" + ftodate + "' AS DATE) and name between '" + seqfrom + "' and '" + seqto + "' and flag = 1 and user_id is not null and loc not like 'M100';")
+
+ 
+
+
+
+

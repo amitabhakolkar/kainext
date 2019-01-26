@@ -22,7 +22,10 @@ web_include_css = "assets/erpnext/css/website.css"
 
 doctype_js = {
 	"Communication": "public/js/communication.js",
+	"Seq100": "public/js/seq100.js"
 }
+
+
 
 # setup wizard
 setup_wizard_requires = "assets/erpnext/js/setup_wizard.js"
@@ -269,3 +272,5 @@ regional_overrides = {
 		'erpnext.controllers.taxes_and_totals.update_itemised_tax_data': 'erpnext.regional.united_arab_emirates.utils.update_itemised_tax_data'
 	}
 }
+doctype_js = {"Item":"public/js/item.js", "Seq100":"public/js/seq100.js"}
+doctype_list_js = {"Item" : "public/js/item_list.js"}

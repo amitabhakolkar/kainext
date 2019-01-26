@@ -1,0 +1,22 @@
+{
+ "align_labels_right": 0, 
+ "creation": "2018-08-06 13:26:07.486705", 
+ "custom_format": 0, 
+ "disabled": 0, 
+ "doc_type": "Delivery Note", 
+ "docstatus": 0, 
+ "doctype": "Print Format", 
+ "font": "Arial", 
+ "format_data": "[{\"fieldname\": \"print_heading_template\", \"fieldtype\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}, {\"fieldtype\": \"Section Break\", \"label\": \"\"}, {\"fieldtype\": \"Column Break\"}, {\"print_hide\": 0, \"fieldname\": \"_custom_html\", \"fieldtype\": \"HTML\", \"label\": \"Custom HTML\"}]", 
+ "idx": 0, 
+ "line_breaks": 0, 
+ "modified": "2018-08-27 17:32:44.164464", 
+ "modified_by": "Administrator", 
+ "module": "Stock", 
+ "name": "New Invoice 1", 
+ "owner": "Administrator", 
+ "print_format_builder": 1, 
+ "print_format_type": "Server", 
+ "show_section_headings": 0, 
+ "standard": "Yes"
+}
